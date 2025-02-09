@@ -10,6 +10,7 @@ namespace HTTPOTAUpdateModule {
      * @param updateUrl The full URL to the firmware file (e.g., "http://192.168.1.100/firmware.bin").
      */
     void checkAndUpdate(const char *updateUrl);
+    void manualOTAUpdate(const char *firmwareUrl);
 }
 
 #endif // HTTP_OTA_UPDATE_MODULE_H

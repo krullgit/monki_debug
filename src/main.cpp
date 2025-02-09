@@ -10,12 +10,10 @@
 #include "shared_modules/FileSystemModule.h"
 #include "ui_callbacks/CustomCallbacks.h"
 
-#include "wifi_credentials.h"
-#include <WiFi.h>
-#include "shared_modules/OTAUpdateModule.h"
-
-// Include the OTA update module
 #include "shared_modules/HTTPOTAUpdateModule.h"
+
+#include "wifi_credentials.h"
+
 
 // LVGL buffer and driver setup
 static lv_disp_draw_buf_t draw_buf;
@@ -100,36 +98,37 @@ void setup() {
     soundModule.initializeAmplifier();
     // Play a random sound once at startup (or call this later)
     randomSeed(analogRead(0));
-    // soundModule.playRandomSound();
+    soundModule.playRandomSound();
 
     vibrationModule.initialize();
-    // vibrationModule.playVibrationPatternAsync(1);
+    vibrationModule.playVibrationPatternAsync(1);
 
     // Initialize BLE.
     // bleModule.begin();
 
-    // Initialize OTA update
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-    Serial.print("Connecting to WiFi");
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print(".");
-    }
-    // Serial.println("\nWiFi connected");
-    // OTAUpdateModule::setupOTA();
+    // // Initialize OTA update
+    // WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    // Serial.print("Connecting to WiFi");
+    // while (WiFi.status() != WL_CONNECTED) {
+    //     delay(500);
+    //     Serial.print(".");
+    // }
 
-    // Optionally, you can check for an update immediately after startup:
-    // Replace with the actual URL of your firmware hosted on your Ubuntu machine.
-    HTTPOTAUpdateModule::checkAndUpdate("https://limewire.com/?referrer=pq7i8xx7p2");
-
-
+    // Start manual OTA update using the URL where the firmware is hosted.
+    HTTPOTAUpdateModule::manualOTAUpdate("http://192.168.0.94:8080/firmware.bin");
 }
 
 void loop() {
 
-    // Handle OTA events
-    OTAUpdateModule::handleOTA();
-
     delay(10);  // Adjust delay as needed.
 
 }
+
+
+// 1. Firewall (UFW):
+// Your Ubuntu machine might be blocking external connections on port 81. Check the status with:
+// sudo ufw status
+// 2. If the firewall is enabled, allow connections on port 81:
+// sudo ufw allow 81/tcp
+// 3. start local server in the folder with the firmware.bin
+// npx http-server -p 8080
