@@ -38,7 +38,7 @@ static void SoundTask(void* param) {
 
 void SoundModule::playRandomSound() {
     // Define your list of pattern numbers.
-    int patterns[] = {1, 2, 6, 24, 27};
+    int patterns[] = {1, 3, 6, 24, 27};
     int numPatterns = sizeof(patterns) / sizeof(patterns[0]);
 
     // Read the last played pattern from EEPROM.

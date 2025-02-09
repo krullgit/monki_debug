@@ -12,7 +12,6 @@
 
 #include "shared_modules/HTTPOTAUpdateModule.h"
 
-#include "wifi_credentials.h"
 
 
 // LVGL buffer and driver setup
@@ -103,17 +102,6 @@ void setup() {
     vibrationModule.initialize();
     vibrationModule.playVibrationPatternAsync(1);
 
-    // Initialize BLE.
-    // bleModule.begin();
-
-    // // Initialize OTA update
-    // WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-    // Serial.print("Connecting to WiFi");
-    // while (WiFi.status() != WL_CONNECTED) {
-    //     delay(500);
-    //     Serial.print(".");
-    // }
-
     // Start manual OTA update using the URL where the firmware is hosted.
     HTTPOTAUpdateModule::manualOTAUpdate("http://192.168.0.94:8080/firmware.bin");
 }
@@ -124,7 +112,7 @@ void loop() {
 
 }
 
-
+// LOCAL FIRMWARE DEPLOYMENT
 // 1. Firewall (UFW):
 // Your Ubuntu machine might be blocking external connections on port 81. Check the status with:
 // sudo ufw status

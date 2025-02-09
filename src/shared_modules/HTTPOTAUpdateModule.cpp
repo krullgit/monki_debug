@@ -39,6 +39,17 @@ namespace HTTPOTAUpdateModule {
 
     void manualOTAUpdate(const char *firmwareUrl) {
 
+
+        // LOCAL FIRMWARE DEPLOYMENT
+        // 1. Firewall (UFW):
+        // Your Ubuntu machine might be blocking external connections on port 81. Check the status with:
+        // sudo ufw status
+        // 2. If the firewall is enabled, allow connections on port 81:
+        // sudo ufw allow 81/tcp
+        // 3. start local server in the folder with the firmware.bin
+        // npx http-server -p 8080
+
+
          // Initialize OTA update
         WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
         Serial.print("Connecting to WiFi");
